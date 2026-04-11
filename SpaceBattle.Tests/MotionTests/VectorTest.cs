@@ -134,4 +134,13 @@ public class VectorTest
         Assert.Equal(v1, v2);
         Assert.Equal(v1.GetHashCode(), v2.GetHashCode());
     }
+
+    [Fact]
+    public void GetHashCode_EqualVectors_ReturnsNoSameHashCode()
+    {
+        var v1 = new Vector([1, 2, 3]);
+        var v2 = new Vector([3, 2, 1]);
+
+        Assert.NotEqual(v1.GetHashCode(), v2.GetHashCode());
+    }
 }
