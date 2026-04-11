@@ -57,11 +57,6 @@ public class Vector
 
     public int Dimension => Coordinates.Length;
 
-    public int[] GetCoordinates()
-    {
-        return Coordinates.ToArray();
-    }
-
     public override int GetHashCode()
     {
         int hash = 76;
