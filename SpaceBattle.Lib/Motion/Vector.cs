@@ -11,7 +11,8 @@ public class Vector
             throw new ArgumentException("Некорректная размерноcть вектора");
         }
 
-        Coordinates = coord;
+        Coordinates = new int[coord.Length];
+        Array.Copy(coord, Coordinates, coord.Length);
     }
 
     public override bool Equals(object? obj)

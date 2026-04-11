@@ -1,4 +1,4 @@
-﻿using SpaceBattle.Lib;
+﻿using Vector = SpaceBattle.Lib.Vector;
 
 namespace SpaceBattle.Tests;
 
@@ -142,5 +142,17 @@ public class VectorTest
         var v2 = new Vector([3, 2, 1]);
 
         Assert.NotEqual(v1.GetHashCode(), v2.GetHashCode());
+    }
+
+    [Fact]
+    public void TestName()
+    {
+        var externalArr = new int[] { 0, 1 };
+        var v = new Vector(externalArr);
+
+        externalArr[0] = 999;
+
+        Assert.Equal(0, v.Coordinates[0]);
+
     }
 }
