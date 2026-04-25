@@ -26,5 +26,11 @@ public class MoveCommand : ICommand
         {
             throw new InvalidOperationException("Cannot get velocity");
         }
+
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine($"Error: {ex}");
+            throw;
+        }
     }
 }
