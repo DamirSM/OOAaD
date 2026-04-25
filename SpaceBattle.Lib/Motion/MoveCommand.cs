@@ -11,17 +11,30 @@ public class MoveCommand : ICommand
 
     public void Execute()
     {
-        if (_movingObject.Position == null)
+        try
         {
-            throw new InvalidOperationException("Cannot get position");
+            if (_movingObject.Position == null)
+            {
+                throw new InvalidOperationException("Cannot get position");
+            }
+
+            if (_movingObject.Velocity == null)
+            {
+                throw new InvalidOperationException("Cannot get velocity");
+            }
+            var newPosition = _movingObject.Position + _movingObject.Velocity;
+            _movingObject.Position = newPosition;
         }
 
-        if (_movingObject.Velocity == null)
+        catch (InvalidOperationException ex)
         {
-            throw new InvalidOperationException("Cannot get velocity");
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
         }
-
-        var newPosition = _movingObject.Position + _movingObject.Velocity;
-        _movingObject.Position = newPosition;
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
+        }
     }
 }
