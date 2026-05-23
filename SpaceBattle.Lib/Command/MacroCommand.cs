@@ -15,16 +15,6 @@ public class MacroCommand : ICommand
 
     public void Execute()
     {
-        ExecuteRecursive(0);
-    }
-
-    private void ExecuteRecursive(int index)
-    {
-        if (index >= _commands.Length)
-            return;
-
-        _commands[index].Execute();
-
-        ExecuteRecursive(index + 1);
+        _commands.ToList().ForEach(c => c.Execute());
     }
 }
