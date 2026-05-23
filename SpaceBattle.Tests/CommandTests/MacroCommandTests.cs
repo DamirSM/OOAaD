@@ -49,5 +49,16 @@ namespace SpaceBattle.Tests
             command2.Verify(c => c.Execute(), Times.Once);
             command3.Verify(c => c.Execute(), Times.Never);
         }
+        [Fact]
+        public void Constructor_Throws_WhenCommandsIsNull()
+        {
+            Assert.Throws<ArgumentException>(() => new MacroCommand(null));
+        }
+
+        [Fact]
+        public void Constructor_Throws_WhenCommandsArrayIsEmpty()
+        {
+            Assert.Throws<ArgumentException>(() => new MacroCommand(Array.Empty<ICommand>()));
+        }
     }
 }
