@@ -8,7 +8,6 @@ namespace SpaceBattle.Lib
 
         static Ioc()
         {
-            // Регистрируем саму команду регистрации
             _strategies["IoC.Register"] = args =>
             {
                 var key = (string)args[0];
@@ -18,13 +17,17 @@ namespace SpaceBattle.Lib
             };
         }
 
+        public static void Unregister(string key)
+        {
+            _strategies.TryRemove(key, out _);
+        }
+
         public static T Resolve<T>(string key, params object[] args)
         {
             if (_strategies.TryGetValue(key, out var strategy))
             {
                 return (T)strategy(args);
             }
-
             throw new ArgumentException($"Unknown IoC dependency key {key}");
         }
 
@@ -37,7 +40,6 @@ namespace SpaceBattle.Lib
                 _key = key;
                 _strategy = strategy;
             }
-
             public void Execute()
             {
                 _strategies[_key] = _strategy;
