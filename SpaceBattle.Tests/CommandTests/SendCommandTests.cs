@@ -27,4 +27,17 @@ public class SendCommandTests
 
         Assert.Throws<Exception>(() => sendCommand.Execute());
     }
+    [Fact]
+    public void SendCommand_Constructor_Throws_WhenCommandIsNull()
+    {
+        var mockReceiver = new Mock<ICommandReceiver>();
+        Assert.Throws<ArgumentNullException>(() => new SendCommand(null, mockReceiver.Object));
+    }
+
+    [Fact]
+    public void SendCommand_Constructor_Throws_WhenReceiverIsNull()
+    {
+        var mockCommand = new Mock<ICommand>();
+        Assert.Throws<ArgumentNullException>(() => new SendCommand(mockCommand.Object, null));
+    }
 }
