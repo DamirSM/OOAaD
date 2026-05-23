@@ -41,4 +41,11 @@ public class CeateMacroCommandStrategyTestsTests
             strategy.Resolve(Array.Empty<object>());
         });
     }
+    [Fact]
+    public void Resolve_Throws_When_Spec_Returns_EmptyArray()
+    {
+        Ioc.Resolve<ICommand>("IoC.Register", "Specs.Macro.Empty", (Func<object[], object>)(_ => Array.Empty<string>())).Execute();
+        var strategy = new CreateMacroCommandStrategy("Specs.Macro.Empty");
+        Assert.Throws<Exception>(() => strategy.Resolve(Array.Empty<object>()));
+    }
 }
