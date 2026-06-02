@@ -1,6 +1,10 @@
 using SpaceBattle.Lib;
 using SpaceBattle.Tests;
 
+[assembly: Xunit.CollectionBehavior(DisableTestParallelization = true)]
+
+namespace SpaceBattle.Tests;
+
 public class GameRegistryTests
 {
     public GameRegistryTests()
