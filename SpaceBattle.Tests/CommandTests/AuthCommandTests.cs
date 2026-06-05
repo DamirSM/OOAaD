@@ -38,6 +38,8 @@ namespace SpaceBattle.Tests.CommandTests
         [Fact]
         public void AuthCommand_Throws_When_AuthCheck_Not_Registered()
         {
+            Ioc.Unregister("Authorization.Check");
+            
             var subjectId = "player1";
             var action = "Move";
             var objectId = "ship1";
