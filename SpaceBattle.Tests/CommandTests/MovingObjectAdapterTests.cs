@@ -11,17 +11,14 @@ namespace SpaceBattle.Tests.CommandTests
         [Fact]
         public void Constructor_AndProperties_WorkCorrectly()
         {
-            // Arrange
             var dict = new Dictionary<string, object>
             {
                 ["Position"] = new Vector(10, 20),
                 ["Velocity"] = new Vector(3, 4)
             };
             
-            // Act
             var adapter = new MovingObjectAdapter(dict);
             
-            // Assert
             Assert.Equal(new Vector(10, 20), adapter.Position);
             Assert.Equal(new Vector(3, 4), adapter.Velocity);
         }
@@ -37,10 +34,8 @@ namespace SpaceBattle.Tests.CommandTests
             };
             var adapter = new MovingObjectAdapter(dict);
             
-            // Act
             adapter.Position = new Vector(5, 7);
             
-            // Assert
             Assert.Equal(new Vector(5, 7), adapter.Position);
             Assert.Equal(new Vector(5, 7), dict["Position"]);
         }
