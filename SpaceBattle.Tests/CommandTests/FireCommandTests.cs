@@ -214,6 +214,7 @@ internal class MockMovingObject : IMovingObject
     }
 }
 
+
 internal class MockRotatingObject : IRotatingObject
 {
     public Angle? Angle { get; set; }
