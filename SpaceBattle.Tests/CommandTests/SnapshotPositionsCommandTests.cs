@@ -1,8 +1,5 @@
-using Xunit;
-using Moq;
-using SpaceBattle.Lib;
+﻿using SpaceBattle.Lib;
 using SpaceBattle.Lib.Command;
-using SpaceBattle.Lib.Interfaces;
 
 namespace SpaceBattle.Tests;
 
@@ -18,7 +15,7 @@ public class SnapshotPositionsCommandTests
         registry[objId] = obj;
 
         Ioc.Resolve<ICommand>("IoC.Register", "Game.Registry", (Func<object[], object>)(_ => registry)).Execute();
-        
+
         Dictionary<Guid, Vector>? snapshot = null;
         Ioc.Resolve<ICommand>("IoC.Register", "Collision.Snapshot", (Func<object[], object>)(args => snapshot = (Dictionary<Guid, Vector>)args[0])).Execute();
 
@@ -42,7 +39,7 @@ public class SnapshotPositionsCommandTests
         registry[objId] = obj;
 
         Ioc.Resolve<ICommand>("IoC.Register", "Game.Registry", (Func<object[], object>)(_ => registry)).Execute();
-        
+
         var command = new SnapshotPositionsCommand();
 
         command.Execute();

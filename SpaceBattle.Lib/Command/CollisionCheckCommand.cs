@@ -1,4 +1,4 @@
-namespace SpaceBattle.Lib.Command;
+﻿namespace SpaceBattle.Lib.Command;
 
 public class CollisionCheckCommand : ICommand
 {
@@ -22,13 +22,15 @@ public class CollisionCheckCommand : ICommand
 
         foreach (var kvp in registry)
         {
-            if (kvp.Key == _objectId) continue;
+            if (kvp.Key == _objectId)
+            {
+                continue;
+            }
+
             var other = kvp.Value;
             string otherType = (string)other["Type"];
             var otherCircles = Ioc.Resolve<IReadOnlyList<Circle>>("Collision.Shape", otherType);
 
-            // Для простоты считаем, что другой объект за этот такт не двигался
-            // В полной версии нужно хранить предыдущую позицию в объекте
             Vector otherPos = (Vector)other["Position"];
             bool collision = CollisionDetector.CheckCollision(
                 _oldPosition, _newPosition, myCircles,

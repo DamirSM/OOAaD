@@ -1,6 +1,4 @@
-using SpaceBattle.Lib;
-
-namespace SpaceBattle.Lib;
+﻿namespace SpaceBattle.Lib;
 
 public class Circle
 {
@@ -13,7 +11,11 @@ public static class VectorExtensions
 {
     public static double Dot(this Vector a, Vector b)
     {
-        if (a.Dimension != b.Dimension) throw new ArgumentException();
+        if (a.Dimension != b.Dimension)
+        {
+            throw new ArgumentException();
+        }
+
         return a.Coordinates.Zip(b.Coordinates, (x, y) => x * y).Sum();
     }
 }

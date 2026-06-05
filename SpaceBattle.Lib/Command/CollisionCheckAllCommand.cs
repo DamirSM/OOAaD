@@ -1,4 +1,4 @@
-namespace SpaceBattle.Lib.Command;
+﻿namespace SpaceBattle.Lib.Command;
 
 public class CollisionCheckAllCommand : ICommand
 {
@@ -12,19 +12,30 @@ public class CollisionCheckAllCommand : ICommand
         {
             var id = kv.Key;
             var obj = kv.Value;
-            if (!obj.ContainsKey("Position")) continue;
+            if (!obj.ContainsKey("Position"))
+            {
+                continue;
+            }
+
             Vector oldPos = snapshot.GetValueOrDefault(id, (Vector)obj["Position"]);
             Vector newPos = (Vector)obj["Position"];
             string type = (string)obj["Type"];
             var circles = Ioc.Resolve<IReadOnlyList<Circle>>("Collision.Shape", type);
 
-            // Получаем только потенциальных соседей через сетку
             var neighbors = grid.GetNearby(id, newPos, 10.0);
             foreach (var otherId in neighbors)
             {
-                if (otherId == id) continue;
+                if (otherId == id)
+                {
+                    continue;
+                }
+
                 var otherObj = registry[otherId];
-                if (!otherObj.ContainsKey("Position")) continue;
+                if (!otherObj.ContainsKey("Position"))
+                {
+                    continue;
+                }
+
                 Vector otherOldPos = snapshot.GetValueOrDefault(otherId, (Vector)otherObj["Position"]);
                 Vector otherNewPos = (Vector)otherObj["Position"];
                 string otherType = (string)otherObj["Type"];

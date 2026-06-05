@@ -1,8 +1,5 @@
-using Xunit;
-using Moq;
-using SpaceBattle.Lib;
+﻿using SpaceBattle.Lib;
 using SpaceBattle.Lib.Command;
-using SpaceBattle.Lib.Interfaces;
 
 namespace SpaceBattle.Tests;
 
@@ -14,17 +11,17 @@ public class CollisionCheckAllCommandTests
     public CollisionCheckAllCommandTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
-        
+
         _registry = new Dictionary<Guid, IDictionary<string, object>>();
-        Ioc.Resolve<ICommand>("IoC.Register", "Game.Registry", 
+        Ioc.Resolve<ICommand>("IoC.Register", "Game.Registry",
             (Func<object[], object>)(_ => _registry)).Execute();
 
         Ioc.Resolve<ICommand>("IoC.Register", "Collision.Shape",
-            (Func<object[], object>)(args => new List<Circle> { new Circle(new Vector(0,0), 1.0) }.AsReadOnly())).Execute();
+            (Func<object[], object>)(args => new List<Circle> { new Circle(new Vector(0, 0), 1.0) }.AsReadOnly())).Execute();
 
         // Регистрируем единственный экземпляр сетки
         _grid = new SpatialGrid(10.0);
-        Ioc.Resolve<ICommand>("IoC.Register", "Collision.Grid", 
+        Ioc.Resolve<ICommand>("IoC.Register", "Collision.Grid",
             (Func<object[], object>)(_ => _grid)).Execute();
     }
 

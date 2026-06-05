@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using SpaceBattle.Lib;
-
-namespace SpaceBattle.Lib.Command
+﻿namespace SpaceBattle.Lib.Command
 {
     public class SpatialGrid
     {
@@ -26,7 +21,10 @@ namespace SpaceBattle.Lib.Command
         {
             var cell = GetCell(pos);
             if (!_grid.ContainsKey(cell))
+            {
                 _grid[cell] = new HashSet<Guid>();
+            }
+
             _grid[cell].Add(id);
         }
 
@@ -34,14 +32,20 @@ namespace SpaceBattle.Lib.Command
         {
             var cell = GetCell(pos);
             if (_grid.TryGetValue(cell, out var set))
+            {
                 set.Remove(id);
+            }
         }
 
         public void Update(Guid id, Vector oldPos, Vector newPos)
         {
             var oldCell = GetCell(oldPos);
             var newCell = GetCell(newPos);
-            if (oldCell == newCell) return;
+            if (oldCell == newCell)
+            {
+                return;
+            }
+
             Remove(id, oldPos);
             Add(id, newPos);
         }
@@ -51,13 +55,21 @@ namespace SpaceBattle.Lib.Command
             var center = GetCell(pos);
             int offset = (int)Math.Ceiling(radius / _cellSize);
             for (int dx = -offset; dx <= offset; dx++)
-            for (int dy = -offset; dy <= offset; dy++)
             {
-                var cell = (center.x + dx, center.y + dy);
-                if (_grid.TryGetValue(cell, out var set))
-                    foreach (var other in set)
-                        if (other != id)
-                            yield return other;
+                for (int dy = -offset; dy <= offset; dy++)
+                {
+                    var cell = (center.x + dx, center.y + dy);
+                    if (_grid.TryGetValue(cell, out var set))
+                    {
+                        foreach (var other in set)
+                        {
+                            if (other != id)
+                            {
+                                yield return other;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

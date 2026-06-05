@@ -1,4 +1,4 @@
-namespace SpaceBattle.Lib.Command;
+﻿namespace SpaceBattle.Lib.Command;
 
 public class SnapshotPositionsCommand : ICommand
 {
@@ -9,8 +9,11 @@ public class SnapshotPositionsCommand : ICommand
         foreach (var kv in registry)
         {
             if (kv.Value.ContainsKey("Position"))
+            {
                 snapshot[kv.Key] = (Vector)kv.Value["Position"];
+            }
         }
+
         Ioc.Resolve<ICommand>("IoC.Register", "Collision.Snapshot", (Func<object[], object>)(_ => snapshot)).Execute();
     }
 }

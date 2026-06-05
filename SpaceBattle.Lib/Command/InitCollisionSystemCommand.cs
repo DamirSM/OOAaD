@@ -1,4 +1,4 @@
-namespace SpaceBattle.Lib.Command;
+﻿namespace SpaceBattle.Lib.Command;
 
 public class InitCollisionSystemCommand : ICommand
 {

@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using SpaceBattle.Lib;
-
-namespace SpaceBattle.Lib.Command
+﻿namespace SpaceBattle.Lib.Command
 {
     public static class CollisionDetector
     {
@@ -13,22 +8,26 @@ namespace SpaceBattle.Lib.Command
             double dt = 1.0)
         {
             foreach (var c1 in circles1)
-            foreach (var c2 in circles2)
             {
-                // Преобразуем координаты в double
-                double s1x = start1.Coordinates[0] + c1.Center.Coordinates[0];
-                double s1y = start1.Coordinates[1] + c1.Center.Coordinates[1];
-                double e1x = end1.Coordinates[0] + c1.Center.Coordinates[0];
-                double e1y = end1.Coordinates[1] + c1.Center.Coordinates[1];
-                double s2x = start2.Coordinates[0] + c2.Center.Coordinates[0];
-                double s2y = start2.Coordinates[1] + c2.Center.Coordinates[1];
-                double e2x = end2.Coordinates[0] + c2.Center.Coordinates[0];
-                double e2y = end2.Coordinates[1] + c2.Center.Coordinates[1];
+                foreach (var c2 in circles2)
+                {
+                    double s1x = start1.Coordinates[0] + c1.Center.Coordinates[0];
+                    double s1y = start1.Coordinates[1] + c1.Center.Coordinates[1];
+                    double e1x = end1.Coordinates[0] + c1.Center.Coordinates[0];
+                    double e1y = end1.Coordinates[1] + c1.Center.Coordinates[1];
+                    double s2x = start2.Coordinates[0] + c2.Center.Coordinates[0];
+                    double s2y = start2.Coordinates[1] + c2.Center.Coordinates[1];
+                    double e2x = end2.Coordinates[0] + c2.Center.Coordinates[0];
+                    double e2y = end2.Coordinates[1] + c2.Center.Coordinates[1];
 
-                if (SweptCircleIntersection(s1x, s1y, e1x, e1y, c1.Radius,
-                                            s2x, s2y, e2x, e2y, c2.Radius, dt))
-                    return true;
+                    if (SweptCircleIntersection(s1x, s1y, e1x, e1y, c1.Radius,
+                                                s2x, s2y, e2x, e2y, c2.Radius, dt))
+                    {
+                        return true;
+                    }
+                }
             }
+
             return false;
         }
 
@@ -47,13 +46,24 @@ namespace SpaceBattle.Lib.Command
             double b = 2 * (relPosX * relVelX + relPosY * relVelY);
             double c = relPosX * relPosX + relPosY * relPosY - sumR * sumR;
 
-            if (Math.Abs(a) < 1e-10) return c <= 0;
+            if (Math.Abs(a) < 1e-10)
+            {
+                return c <= 0;
+            }
 
             double disc = b * b - 4 * a * c;
-            if (disc < 0) return false;
+            if (disc < 0)
+            {
+                return false;
+            }
+
             double t1 = (-b - Math.Sqrt(disc)) / (2 * a);
             double t2 = (-b + Math.Sqrt(disc)) / (2 * a);
-            if (t1 > t2) (t1, t2) = (t2, t1);
+            if (t1 > t2)
+            {
+                (t1, t2) = (t2, t1);
+            }
+
             return t1 <= dt && t2 >= 0;
         }
     }

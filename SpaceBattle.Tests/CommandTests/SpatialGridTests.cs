@@ -1,4 +1,4 @@
-using Xunit;
+﻿using Xunit;
 using SpaceBattle.Lib;
 using SpaceBattle.Lib.Command;
 using SpaceBattle.Lib.Interfaces;
