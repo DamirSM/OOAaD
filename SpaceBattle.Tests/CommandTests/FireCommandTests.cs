@@ -36,7 +36,7 @@ public class FireCommandTests : IDisposable
                 (Func<object[], object>)(args => new StartCommand((IDictionary<string, object>)args[0], (string)args[1]))
             ).Execute();
         }
-        catch (Exception ex) { }
+        catch { }
         try
         {
             var registry = Ioc.Resolve<Dictionary<Guid, IDictionary<string, object>>>("Game.Registry");
