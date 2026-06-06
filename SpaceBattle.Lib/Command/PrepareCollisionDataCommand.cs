@@ -6,14 +6,14 @@ public class PrepareCollisionDataCommand : ICommand
 {
     private class CircleDto
     {
-        public int[] Center { get; set; }
+        public int[] Center { get; set; } = Array.Empty<int>();  
         public double Radius { get; set; }
     }
 
     private class CollisionDataDto
     {
-        public string Type { get; set; }
-        public List<CircleDto> LocalCircles { get; set; }
+        public string Type { get; set; } = string.Empty;  
+        public List<CircleDto> LocalCircles { get; set; } = new();  
     }
 
     public void Execute()

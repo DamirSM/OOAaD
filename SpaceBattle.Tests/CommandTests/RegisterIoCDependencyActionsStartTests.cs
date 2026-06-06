@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using SpaceBattle.Lib;
 using SpaceBattle.Lib.Command;
 using SpaceBattle.Lib.Interfaces;
-using Xunit;
 
 public class RegisterIoCDependencyActionsStartTests : IDisposable
 {
@@ -58,14 +55,14 @@ public class RegisterIoCDependencyActionsStartTests : IDisposable
     {
         foreach (var key in KeysToClean)
         {
-            Ioc.Unregister(key); // чистка после теста
+            Ioc.Unregister(key); 
         }
     }
-    
+
     [Fact]
     public void StartCommand_Constructor_Throws_WhenReceiverKeyMissing()
     {
-        var gameObject = new Dictionary<string, object>(); 
+        var gameObject = new Dictionary<string, object>();
         Assert.Throws<InvalidOperationException>(() => new StartCommand(gameObject, "Move"));
     }
 
@@ -74,7 +71,7 @@ public class RegisterIoCDependencyActionsStartTests : IDisposable
     {
         var gameObject = new Dictionary<string, object>
         {
-            ["Receiver"] = "not a receiver" 
+            ["Receiver"] = "not a receiver"
         };
         Assert.Throws<InvalidOperationException>(() => new StartCommand(gameObject, "Move"));
     }

@@ -46,7 +46,7 @@ public class CollisionCheckCommandTests
         Ioc.Resolve<ICommand>("IoC.Register", "Collision.Shape",
             (Func<object[], object>)(args =>
             {
-                shapesRegistered = true;
+                shapesRegistered = !shapesRegistered;
                 return new List<Circle> { new Circle(new Vector(0, 0), 1.0) }.AsReadOnly();
             })).Execute();
 
