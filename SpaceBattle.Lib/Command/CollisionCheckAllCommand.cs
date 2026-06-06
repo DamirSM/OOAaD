@@ -20,6 +20,7 @@ public class CollisionCheckAllCommand : ICommand
             Vector oldPos = snapshot.GetValueOrDefault(id, (Vector)obj["Position"]);
             Vector newPos = (Vector)obj["Position"];
             string type = (string)obj["Type"];
+            grid.Update(kv.Key, oldPos, newPos);
             var circles = Ioc.Resolve<IReadOnlyList<Circle>>("Collision.Shape", type);
 
             var neighbors = grid.GetNearby(id, newPos, 10.0);
